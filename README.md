@@ -14,9 +14,10 @@ npm run build
 npm run serve
 
 cd backend
-source venv/bin/activate
-pip install flask
-FLASK_APP=run.py FLASK_DEBUG=1 flask run
+pipenv run start
+
+`exit`
+deactivate
 ```
 
 ## 準備中
