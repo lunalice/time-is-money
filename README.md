@@ -11,7 +11,7 @@
 ```
 cd frontend
 npm run build
-npm run dev
+npm run serve
 
 cd backend
 source venv/bin/activate
