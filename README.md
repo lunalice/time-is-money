@@ -13,7 +13,9 @@ cd frontend
 npm run build
 npm run dev
 
+cd backend
 source venv/bin/activate
+pip install flask
 FLASK_APP=run.py FLASK_DEBUG=1 flask run
 ```
 
