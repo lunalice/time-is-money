@@ -9,7 +9,6 @@
 - vue-cli
 - python3
 - pipenv
-- flask
 
 ## debug
 ```
@@ -24,3 +23,8 @@ pipenv run start
 deactivate
 ```
 
+## 残り
+form_validation  
+db_setting  
+other_page  
+deployed_setting  

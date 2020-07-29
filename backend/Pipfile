@@ -10,9 +10,19 @@ rope = "*"
 
 [packages]
 flask = "*"
+pymysql = "*"
+ipython = "*"
+sqlalchemy = "*"
+mysql-connector-python = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+python-dotenv = "*"
+pandas = "*"
+flask-marshmallow = "*"
 
 [requires]
 python_version = "3.7"
 
 [scripts]
 start = "python run.py"
+migrate = "python flask db init"
