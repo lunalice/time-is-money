@@ -2,11 +2,24 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/data">data</router-link> |
+      <router-link to="/about">about</router-link>
     </div>
     <router-view />
+    <Footer />
   </div>
 </template>
+
+<script>
+import Footer from "@/components/Footer.vue";
+
+export default {
+  name: "App",
+  components: {
+    Footer
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
