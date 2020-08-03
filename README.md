@@ -1,8 +1,8 @@
 # TimeIsMoney
 
 ## TL;DR
-- 昔作成した簡単な時給計算シミュレーターをwebアプリ移植（途中）
-- データ入力だけで自分の家賃パフォーマンス計測出来る！
+- 昔作成した簡単な時給計算シミュレーターをwebアプリ移植
+- データ入力だけで自分のコストパフォーマンス計測出来る！
 - DB連携して入力してきた方々の平均値をビビっと出すくらいまでやるかな？
 
 ## config
@@ -18,13 +18,19 @@ npm run serve
 
 cd backend
 pipenv run start
+http://localhost:5000
 
-`exit`
+# pipenv in
+pipenv shell
 deactivate
+exit
 ```
 
 ## 残り
-form_validation  
-db_setting  
-other_page  
 deployed_setting  
+development and production settings  
+PWA  
+
+## 後回し🥺
+design  
+average  

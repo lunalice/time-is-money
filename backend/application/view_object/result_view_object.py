@@ -54,8 +54,11 @@ class ResultViewObject:
     def overtime_pay(self): # 平均残業時間 * 12ヶ月 * 時給
         return round(self.overtime * 12 * self.hourly_wage())
 
+    def annual_consumption(self): # 年間消費金額
+        return self.rent + self.consumption()
+
     def twitter_intent_url(self):
-        text = f'{self.age}才さんのコスパは...\n時給：{self.hourly_wage()}円\n日給：{self.daily_wage()}円\n通勤時間（年）：{self.annual_commuting_time()}時間\n年間消費金額：{self.age}円\n実収入：{self.age}円\n'
+        text = f'{self.age}才さんのコスパは...\n時給：{self.hourly_wage()}円\n日給：{self.daily_wage()}円\n通勤時間（年）：{self.annual_commuting_time()}時間\n年間消費金額：{self.annual_consumption()}円\n実収入：{self.annual_income - self.annual_consumption()}円\n'
         url = 'http://localhost:5000/'
         hashtags = 'コスパシミュ'
         params = {
@@ -64,5 +67,4 @@ class ResultViewObject:
           'hashtags': hashtags,
         }
         d_qs = urllib.parse.urlencode(params)
-        print(d_qs)
         return 'https://twitter.com/intent/tweet' + '?' + d_qs

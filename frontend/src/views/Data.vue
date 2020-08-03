@@ -1,11 +1,46 @@
 <template>
-  <div class="data" v-if="users">
-    <h1>触ってくれた方々</h1>
-    <table class="table table-dark">
-      <tr><th></th><th></th><th>年齢</th><th>年収</th><th>休日</th><th>勤務時間</th><th>残業時間</th><th>通勤時間</th><th>家賃</th></tr>
-      <tr v-for="(user, index) in users" :key="user.id"><th></th><th><input name="selectTarget" type="radio" @change="selectedUser($event, index)" /></th><th>{{ user.age }}</th><th>{{ user.annual_income }}</th><th>{{ user.holiday }}</th><th>{{ user.working_hours }}</th><th>{{ user.overtime }}</th><th>{{ user.commuting_time }}</th><th>{{ user.rent }}</th></tr>
-    </table>
-    <!-- pagenation実装・・・ -->
+  <div class="data container mb-50" v-if="users">
+    <paginate name="paginate-users" :list="users" :per="10">
+      <div class="table-responsive">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">checked</th>
+              <th scope="col">年齢</th>
+              <th scope="col">年収</th>
+              <th scope="col">休日</th>
+              <th scope="col">勤務時間</th>
+              <th scope="col">残業時間</th>
+              <th scope="col">通勤時間</th>
+              <th scope="col">家賃</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(user, index) in paginated('paginate-users')" :key="user.id">
+              <th scope="row"><input name="selectTarget" type="radio" @change="selectedUser($event, index)" /></th>
+              <td>{{ user.age }}</td>
+              <td>{{ user.annual_income }}</td>
+              <td>{{ user.holiday }}</td>
+              <td>{{ user.working_hours }}</td>
+              <td>{{ user.overtime }}</td>
+              <td>{{ user.commuting_time }}</td>
+              <td>{{ user.rent }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </paginate>
+    <nav aria-label="Page navigation">
+      <paginate-links
+        for="paginate-users"
+        :classes="{
+          'ul': ['pagination', 'justify-content-center'],
+          'li': 'page-item',
+          'a': ['page-link', 'page-link--color']
+        }"
+        :show-step-links="true">
+      </paginate-links>
+    </nav>
     <Result :result="selected" />
   </div>
 </template>
@@ -21,7 +56,8 @@ export default {
   data() {
     return {
       users: false,
-      selected: false
+      selected: false,
+      paginate: ['paginate-users']
     };
   },
   methods: {
@@ -46,4 +82,16 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.data {
+  ul {
+    padding: 0;
+  }
+  nav {
+    color: #007bff !important;
+    &:active {
+      color: #fff !important;
+    }
+  }
+}
+</style>

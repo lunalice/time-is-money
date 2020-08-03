@@ -1,6 +1,6 @@
 <template>
   <div class="result" v-if="result">
-    <h1>診断結果</h1>
+    <h1 class="text-center">診断結果</h1>
     <p>
       {{ result.age }}才さんの時給は {{ result.hourly_wage }} 円です。<br />
       日給は{{ result.daily_wage }}円（稼働{{result.operating_time }}時間）です。
@@ -15,7 +15,7 @@
       ※ 時間のみ考慮している為、光熱費・食費等は含んでいません。<br />
       ※ 空いた時間は年収を上げる為にスキル向上に使うもよし、年収に満足してるなら趣味に使うのもよき<br />
     </p>
-    <a :href="result.twitter_intent_url" target="_blank" rel="noopener">tweet</a>
+    <a :href="result.twitter_intent_url" target="_blank" rel="noopener" class="twitter-intent-button">tweet</a>
   </div>
 </template>
 
@@ -28,4 +28,28 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.result {
+  margin: 50px 0;
+}
+
+.twitter-intent-button {
+  background-color: #55acee;
+  border: 2px solid #55acee;
+  border-radius: 3px;
+  color: #fff;
+  padding:4px 32px;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 8rem;
+  display: block;
+}
+
+.twitter-intent-button:hover {
+  background-color: #fff;
+  color: #55acee;
+}
+</style>

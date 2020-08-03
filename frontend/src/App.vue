@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/data">data</router-link> |
-      <router-link to="/about">about</router-link>
-    </div>
+    <fixed-header>
+      <div class="navbar">
+        <h1>¥Time-Is-Money$</h1>
+        <nav id="nav">
+          <router-link to="/">About</router-link> |
+          <router-link to="/data">Data</router-link> |
+          <router-link to="/simulator">Simulator</router-link>
+        </nav>
+      </div>
+    </fixed-header>
     <router-view />
     <Footer />
   </div>
@@ -12,26 +17,69 @@
 
 <script>
 import Footer from "@/components/Footer.vue";
+import FixedHeader from "vue-fixed-header";
 
 export default {
   name: "App",
   components: {
-    Footer
-  },
+    Footer,
+    FixedHeader
+  }
 };
 </script>
 
 <style lang="scss">
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap-vue/src/index.scss";
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: black;
+  width: 100%;
+  padding: 0px;
+}
+
+.mb-50 {
+  margin-bottom: 50px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  color: white;
+}
+
+.navbar {
+  z-index: 1;
+  h1 {
+    text-align: initial;
+    margin: 0.65rem;
+    font-size: 2em;
+  }
+}
+
+.form-group--error {
+  label {
+    color: #f04124;
+  }
+
+  input {
+    border: 1px solid #f79483 !important;
+  }
+  border-color: #f79483;
+}
+
+.error {
+  color: #f57f6c;
 }
 
 #nav {
-  padding: 30px;
+  padding: 0.65rem;
+  font-size: 1em;
 
   a {
     font-weight: bold;
@@ -41,5 +89,13 @@ export default {
       color: #42b983;
     }
   }
+}
+
+.navbar.vue-fixed-header--isFixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  background-color: black;
 }
 </style>

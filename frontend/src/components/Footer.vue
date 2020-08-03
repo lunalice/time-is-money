@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <footer>
-      <p>Copyright (C)&nbsp; 2020 yamaP</p>
+      Copyright (C)&nbsp; 2020 yamaP
     </footer>
   </div>
 </template>
@@ -14,6 +14,7 @@ export default {
 
 <style scoped lang="scss">
 footer {
+    background-color: black;
     border-top: solid 1px white;
     border-bottom: solid 1px white;
     font-size: 14px;

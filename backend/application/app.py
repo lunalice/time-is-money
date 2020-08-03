@@ -25,6 +25,32 @@ def random_number():
     }
     return jsonify(response)
 
+@app.route('/service-worker.js')
+def sw():
+    return app.send_static_file('service-worker.js')
+
+@app.route('/manifest.json')
+def manifest():
+    manifest = {
+        "short_name": "コスパシミュ",
+        "name": "コストパフォーマンスシミュレーター",
+        "lang": "ja-JP",
+        "icons": [
+            {
+                "src": "../../frontend/dist/static/img/icons/android-chrome-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png"
+            },
+            {
+                "src": "../../frontend/dist/static/img/icons/android-chrome-512x512.png",
+                "sizes": "512x512",
+                "type": "image/png"
+            }
+        ],
+        "display": "standalone"
+    }
+    return jsonify(manifest)
+
 @app.route('/api/users', methods=['POST'])
 def post_user():
     payload = request.form
@@ -41,13 +67,25 @@ def post_user():
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    users = User.query.all()
+    # pagination実装まで仮で10件取得する
+    users = User.query.order_by(User.created_at.desc()).all()
     result = []
     for user in users:
         result.append(view_object.ResultViewObject(user.age, user.annual_income,\
             user.working_hours, user.overtime, user.commuting_time, user.rent, holiday=user.holiday).output())
-    
+
     return jsonify(result), 200
+
+# 平均ページ
+# @app.route('/api/users/average', methods=['GET'])
+# def get_users():
+#     users = User.query.order_by(User.created_at.desc()).limit(10).all()
+#     result = []
+#     for user in users:
+#         result.append(view_object.ResultViewObject(user.age, user.annual_income,\
+#             user.working_hours, user.overtime, user.commuting_time, user.rent, holiday=user.holiday).output())
+
+#     return jsonify(result), 200
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
