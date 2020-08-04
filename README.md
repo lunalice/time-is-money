@@ -26,11 +26,18 @@ deactivate
 exit
 ```
 
+```heroku
+heroku run python
+from ~ import db
+db.create_all()
+```
+
 ## 残り
-development and production settings  
 PWA  
+herokuが落ちないような定期タスク追加  
 
 ## 後回し🥺
 design  
 average  
-deployed_setting  
+db migrate  
+refactor

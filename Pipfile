@@ -26,4 +26,4 @@ python_version = "python-3.7.8"
 
 [scripts]
 start = "python backend/run.py"
-migrate = "python flask db init"
+migrate = "python backend/run.py flask db init && flask db migrate && flask db upgrade"

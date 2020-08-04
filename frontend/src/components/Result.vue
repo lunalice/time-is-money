@@ -1,5 +1,5 @@
 <template>
-  <div class="result" v-if="result">
+  <div class="result pb-50" v-if="result">
     <h1 class="text-center">診断結果</h1>
     <p>
       {{ result.age }}才さんの時給は {{ result.hourly_wage }} 円です。<br />
@@ -29,10 +29,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.result {
-  margin: 50px 0;
-}
-
 .twitter-intent-button {
   background-color: #55acee;
   border: 2px solid #55acee;

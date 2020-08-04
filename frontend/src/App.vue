@@ -34,16 +34,22 @@ export default {
 
 html {
   font-size: 16px;
+  height: 100%;
 }
 
 body {
   background-color: black;
   width: 100%;
   padding: 0px;
+  height: 100%;
 }
 
 .mb-50 {
   margin-bottom: 50px;
+}
+
+.pb-50 {
+  padding-bottom: 50px;
 }
 
 #app {

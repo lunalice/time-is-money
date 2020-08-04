@@ -6,6 +6,8 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import VuePaginate from "vue-paginate";
 import Vuelidate from "vuelidate";
 
+require("dotenv").config();
+
 Vue.use(Vuelidate);
 Vue.use(VuePaginate);
 

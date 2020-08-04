@@ -1,6 +1,7 @@
 from IPython import embed
-import application.utils as Utils
+from .. import utils
 import urllib
+import os
 
 class ResultViewObject:
     def __init__(self, age, annual_income, working_hours, overtime, commuting_time, rent, holiday=None):
@@ -10,7 +11,7 @@ class ResultViewObject:
         self.overtime = int(overtime)
         self.commuting_time = int(commuting_time)
         self.rent = int(rent)
-        self.holiday = int(holiday or Utils.holiday())
+        self.holiday = int(holiday or utils.holiday())
 
     def output(self):
         return {
@@ -20,18 +21,21 @@ class ResultViewObject:
             'commuting_time': self.commuting_time,
             'rent': self.rent,
             'holiday': self.holiday,
-            'annual_rent': self.rent * 12,
+            'annual_rent': self.annual_rent(),
             'hourly_wage': self.hourly_wage(),
             'daily_wage': self.daily_wage(),
             'operating_time': self.operating_time(),
             'annual_commuting_time': self.annual_commuting_time(), # 年間通勤時間
             'consumption': self.consumption(), # 消費金額
             'annual_income': self.annual_income,
-            'income': (self.annual_income - self.consumption()), # 年収
+            'income': (self.annual_income - self.annual_rent() - self.consumption()), # 年収
             'overtime_pay': self.overtime_pay(), # 残業代
             'working_days': self.working_days(),
             'twitter_intent_url': self.twitter_intent_url()
         }
+
+    def annual_rent(self): # 家賃 * 12 = 年間家賃
+        return round(self.rent * 12)
 
     def daily_wage(self): # 年収 * 10000 / 労働日数 = 日収
         return round((self.annual_income) / self.working_days())
@@ -43,8 +47,8 @@ class ResultViewObject:
         return round(self.working_hours + self.overtime * 12 / self.working_days())
 
     def working_days(self): # 365 - 休日 = 年間労働日
-        return round(Utils.NUMBER_OF_DAYS_PER_YEAR - self.holiday)
-    
+        return round(utils.NUMBER_OF_DAYS_PER_YEAR - self.holiday)
+
     def consumption(self): # 時給 * 年間通勤時間 = 消費金額
         return round(self.hourly_wage() * self.annual_commuting_time())
 
@@ -59,12 +63,12 @@ class ResultViewObject:
 
     def twitter_intent_url(self):
         text = f'{self.age}才さんのコスパは...\n時給：{self.hourly_wage()}円\n日給：{self.daily_wage()}円\n通勤時間（年）：{self.annual_commuting_time()}時間\n年間消費金額：{self.annual_consumption()}円\n実収入：{self.annual_income - self.annual_consumption()}円\n'
-        url = 'http://localhost:5000/'
+        url = os.getenv('API_BASE_URL', 'http://localhost:5000/')
         hashtags = 'コスパシミュ'
         params = {
-          'text': text,
-          'url': url,
-          'hashtags': hashtags,
+            'text': text,
+            'url': url,
+            'hashtags': hashtags,
         }
         d_qs = urllib.parse.urlencode(params)
         return 'https://twitter.com/intent/tweet' + '?' + d_qs

@@ -1,5 +1,5 @@
 <template>
-  <div class="about container mb-50">
+  <div class="about container pb-50">
     <img src="../assets/kyuryou_bonus_man2.png" alt="やったー！！" />
     <p>自分にかかるコスト計測した事はありますか？</p>
     <p>オファーを受ける際、年収を提示されてそれで終わりになっていませんか？</p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="data container mb-50" v-if="users">
+  <div class="data container pb-50" v-if="users">
     <paginate name="paginate-users" :list="users" :per="10">
       <div class="table-responsive">
         <table class="table table-dark">
@@ -62,7 +62,8 @@ export default {
   },
   methods: {
     getUsers() {
-      const path = `http://localhost:5000/api/users`;
+      const path = process.env.VUE_APP_API_BASE_URL ? `${process.env.VUE_APP_API_BASE_URL}api/users`
+        : `http://localhost:5000/api/users`;
       axios
         .get(path)
         .then(response => {
@@ -76,7 +77,7 @@ export default {
       this.selected = this.users[index];
     }
   },
-  created() {
+  mounted() {
     this.getUsers();
   }
 };

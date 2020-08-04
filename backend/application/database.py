@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate 
+from flask_migrate import Migrate
 from IPython import embed
-from application import app
+from . import app
 
 db = SQLAlchemy()
 migrate = Migrate()

@@ -1,6 +1,6 @@
 <template>
-  <div class="simulator container mb-50">
-    <form class="mb-50">
+  <div class="simulator container pb-50">
+    <form class="pb-50">
       <div class="form-group row" :class="{ 'form-group--error': $v.user.age.$error }">
         <label class="col-sm-2 col-form-label-sm col-form-label">年齢</label>
         <div class="col-sm-10">
@@ -9,7 +9,6 @@
       </div>
       <div class="error" v-if="!$v.user.age.required">Field is required</div>
       <div class="error" v-if="!$v.user.age.between">greater than or equal to {{ $v.user.age.$params.between.min }}. less than or equal to {{ $v.user.age.$params.between.max }}</div>
-      <!-- <tree-view :data="$v.user.age" :options="{rootObjectKey: '$v.user.age', maxDepth: 2}"></tree-view> -->
       <div class="form-group row" :class="{ 'form-group--error': $v.user.annual_income.$error }">
         <label class="col-sm-2 col-form-label-sm col-form-label">年収</label>
         <div class="col-sm-10">
@@ -35,7 +34,7 @@
       <div class="error" v-if="!$v.user.overtime.required">Field is required</div>
       <div class="error" v-if="!$v.user.overtime.between">greater than or equal to {{ $v.user.overtime.$params.between.min }}. less than or equal to {{ $v.user.overtime.$params.between.max }}</div>
       <div class="form-group row" :class="{ 'form-group--error': $v.user.commuting_time.$error }">
-        <label class="col-sm-2 col-form-label-sm col-form-label">通勤時間（片道）</label>
+        <label class="col-sm-2 col-form-label-sm col-form-label">通勤時間（片道分）</label>
         <div class="col-sm-10">
           <input type="text" v-model="$v.user.commuting_time.$model" required class="form-control-sm form-control" placeholder="例：60">
         </div>
@@ -70,10 +69,6 @@
 import { required, between } from "vuelidate/lib/validators"
 import Result from "@/components/Result.vue";
 import axios from "axios";
-
-// // 調整する
-// export const apiEndpointRoot =
-//   (process.env.ENGINE_MOUNT_TO_ROOT !== '0') ? '/api' : '/web/api';
 
 export default {
   name: "Simulator",
@@ -124,20 +119,6 @@ export default {
     }
   },
   methods: {
-    getRandom() {
-      this.randomNumber = this.getRandomFromBackend();
-    },
-    getRandomFromBackend() {
-      const path = `http://localhost:5000/api/random`;
-      axios
-        .get(path)
-        .then(response => {
-          this.randomNumber = response.data.randomNumber;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
     submit() {
       this.$v.$touch()
       if (this.$v.$invalid) {
@@ -157,7 +138,8 @@ export default {
       params.append("overtime", this.user.overtime);
       params.append("commuting_time", this.user.commuting_time);
       params.append("rent", this.user.rent);
-      const path = `http://localhost:5000/api/users`;
+      const path = process.env.VUE_APP_API_BASE_URL ? `${process.env.VUE_APP_API_BASE_URL}api/users`
+        : `http://localhost:5000/api/users`;
       axios
         .post(path, params)
         .then(response => {
@@ -167,9 +149,6 @@ export default {
           console.log(error);
         });
     }
-  },
-  created() {
-    this.getRandom();
   }
 };
 </script>

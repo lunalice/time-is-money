@@ -1,6 +1,6 @@
 from datetime import datetime
-from application.database import db
-from application import app
+from ..database import db
+# from application import app
 from IPython import embed
 from flask import Flask
 
@@ -17,7 +17,7 @@ class User(db.Model):
     rent = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    
+
     # @property
     # def serialize(self):
     #     return {
