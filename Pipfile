@@ -19,10 +19,11 @@ flask-migrate = "*"
 python-dotenv = "*"
 pandas = "*"
 flask-marshmallow = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
 
 [scripts]
-start = "python run.py"
+start = "python backend/run.py"
 migrate = "python flask db init"

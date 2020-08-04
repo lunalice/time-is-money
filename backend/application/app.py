@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory
 from application.database import init_db, db
 from application.models import User
 from random import *
@@ -25,9 +25,13 @@ def random_number():
     }
     return jsonify(response)
 
-@app.route('/service-worker.js')
-def sw():
-    return app.send_static_file('service-worker.js')
+# @app.route('/service-worker.js')
+# def sw():
+#     response=make_response(
+#                      send_from_directory('static', filename='service-worker.js'))
+#     #change the content header file
+#     response.headers['Content-Type']='application/javascript'
+#     return response
 
 @app.route('/manifest.json')
 def manifest():
@@ -37,16 +41,17 @@ def manifest():
         "lang": "ja-JP",
         "icons": [
             {
-                "src": "../../frontend/dist/static/img/icons/android-chrome-192x192.png",
+                "src": "static/img/icons/android-chrome-192x192.png",
                 "sizes": "192x192",
                 "type": "image/png"
             },
             {
-                "src": "../../frontend/dist/static/img/icons/android-chrome-512x512.png",
+                "src": "static/img/icons/android-chrome-512x512.png",
                 "sizes": "512x512",
                 "type": "image/png"
             }
         ],
+        "start_url": "./index.html",
         "display": "standalone"
     }
     return jsonify(manifest)

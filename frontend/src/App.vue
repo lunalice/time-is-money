@@ -54,7 +54,7 @@ body {
 }
 
 .navbar {
-  z-index: 1;
+  z-index: 4;
   h1 {
     text-align: initial;
     margin: 0.65rem;
