@@ -27,10 +27,10 @@ exit
 ```
 
 ## 残り
-deployed_setting  
 development and production settings  
 PWA  
 
 ## 後回し🥺
 design  
 average  
+deployed_setting  
