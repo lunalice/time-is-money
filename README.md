@@ -32,12 +32,14 @@ from ~ import db
 db.create_all()
 ```
 
-## 残り
-PWA  
-herokuが落ちないような定期タスク追加  
+## 最低限動くまで残
 
-## 後回し🥺
+## のちのちやっといた方がいいもの
 design  
 average  
 db migrate  
-refactor
+refactor  
+
+## TODO
+herokuが落ちないように定期モニタリングしてるのでいらなくなったら削除すること
+https://uptimerobot.com/

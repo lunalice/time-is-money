@@ -70,7 +70,8 @@ export default {
           this.users = response.data;
         })
         .catch(error => {
-          console.log(error);
+          console.log('database filed.');
+          return Promise.reject(error);
         });
     },
     selectedUser(event, index) {

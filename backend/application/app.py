@@ -1,10 +1,11 @@
-from flask import Flask, render_template, jsonify, request, send_from_directory
+from flask import Flask, render_template, jsonify, request, make_response, send_from_directory
 from .database import init_db, db
 from .models import User
 from random import *
 from IPython import embed
 from . import utils
 from .view_object.result_view_object import ResultViewObject
+import os
 
 def create_app():
     app = Flask(__name__,
@@ -17,44 +18,12 @@ def create_app():
 
 app = create_app()
 
-# sample
-@app.route('/api/random')
-def random_number():
-    response = {
-        'randomNumber': randint(1, 100)
-    }
-    return jsonify(response)
-
 # @app.route('/service-worker.js')
 # def sw():
-#     response=make_response(
-#                      send_from_directory('static', filename='service-worker.js'))
+#     response = make_response(send_from_directory(app.template_folder + '/static', filename='service-worker.js'))
 #     #change the content header file
 #     response.headers['Content-Type']='application/javascript'
 #     return response
-
-@app.route('/manifest.json')
-def manifest():
-    manifest = {
-        "short_name": "コスパシミュ",
-        "name": "コストパフォーマンスシミュレーター",
-        "lang": "ja-JP",
-        "icons": [
-            {
-                "src": "static/img/icons/android-chrome-192x192.png",
-                "sizes": "192x192",
-                "type": "image/png"
-            },
-            {
-                "src": "static/img/icons/android-chrome-512x512.png",
-                "sizes": "512x512",
-                "type": "image/png"
-            }
-        ],
-        "start_url": "./index.html",
-        "display": "standalone"
-    }
-    return jsonify(manifest)
 
 @app.route('/api/users', methods=['POST'])
 def post_user():
@@ -72,7 +41,6 @@ def post_user():
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    # pagination実装まで仮で10件取得する
     users = User.query.order_by(User.created_at.desc()).all()
     result = []
     for user in users:
@@ -81,7 +49,7 @@ def get_users():
 
     return jsonify(result), 200
 
-# 平均ページ
+# 平均ページいつか作る・・・？
 # @app.route('/api/users/average', methods=['GET'])
 # def get_users():
 #     users = User.query.order_by(User.created_at.desc()).limit(10).all()

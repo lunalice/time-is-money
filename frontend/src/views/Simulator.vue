@@ -66,7 +66,7 @@
 
 <script>
 // @ is an alias to /src
-import { required, between } from "vuelidate/lib/validators"
+import { required, between } from "vuelidate/lib/validators";
 import Result from "@/components/Result.vue";
 import axios from "axios";
 
@@ -87,7 +87,7 @@ export default {
         rent: 55000
       },
       result: false,
-      submitStatus: ''
+      submitStatus: ""
     };
   },
   validations: {
@@ -120,14 +120,14 @@ export default {
   },
   methods: {
     submit() {
-      this.$v.$touch()
+      this.$v.$touch();
       if (this.$v.$invalid) {
-        this.submitStatus = 'ERROR';
+        this.submitStatus = "ERROR";
       } else {
-        this.submitStatus = 'PENDING';
+        this.submitStatus = "PENDING";
         setTimeout(() => {
           this.saveAsNew();
-        }, 500)
+        }, 500);
       }
     },
     saveAsNew() {
@@ -138,7 +138,8 @@ export default {
       params.append("overtime", this.user.overtime);
       params.append("commuting_time", this.user.commuting_time);
       params.append("rent", this.user.rent);
-      const path = process.env.VUE_APP_API_BASE_URL ? `${process.env.VUE_APP_API_BASE_URL}api/users`
+      const path = process.env.VUE_APP_API_BASE_URL
+        ? `${process.env.VUE_APP_API_BASE_URL}api/users`
         : `http://localhost:5000/api/users`;
       axios
         .post(path, params)
@@ -146,7 +147,8 @@ export default {
           this.result = response.data;
         })
         .catch(error => {
-          console.log(error);
+          console.log('database filed.');
+          return Promise.reject(error);
         });
     }
   }
