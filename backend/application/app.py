@@ -41,11 +41,12 @@ def post_user():
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
-    users = User.query.order_by(User.created_at.desc()).all()
     result = []
+    users = User.query.order_by(User.created_at.desc()).all()
     for user in users:
         result.append(ResultViewObject(user.age, user.annual_income,\
-            user.working_hours, user.overtime, user.commuting_time, user.rent, holiday=user.holiday).output())
+            user.working_hours, user.overtime, user.commuting_time,\
+            user.rent, holiday=user.holiday).output())
 
     return jsonify(result), 200
 
